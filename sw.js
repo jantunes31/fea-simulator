@@ -1,5 +1,5 @@
-/* Janus FEA service worker — caches app shell + wasm for offline use */
-const CACHE = 'janus-fea-v1'
+/* Testudo service worker — caches app shell + wasm for offline use */
+const CACHE = 'testudo-fea-v2'
 const BASE = self.registration.scope
 
 self.addEventListener('install', (event) => {
@@ -11,6 +11,9 @@ self.addEventListener('install', (event) => {
       './manifest.json',
       './icons/icon-192.png',
       './icons/icon-512.png',
+      './icons/testudo.svg',
+      './apple-touch-icon.png',
+      './favicon.ico',
       './occt-import-js.wasm',
       './occt-import-js.js',
     ].map((p) => new URL(p, BASE).href)

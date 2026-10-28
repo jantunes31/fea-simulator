@@ -1,7 +1,7 @@
 {
-  "name": "Testudo — FEA by Jantunes",
-  "short_name": "Testudo",
-  "description": "Testudo — FEA by Jantunes. Browser SolidWorks-style static finite element analysis.",
+  "name": "JANTVS Testudo — FEA by Jantunes",
+  "short_name": "JANTVS Testudo",
+  "description": "JANTVS Testudo — FEA by Jantunes. Browser SolidWorks-style static finite element analysis.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

@@ -1,5 +1,5 @@
-/* Testudo service worker — caches app shell + wasm for offline use */
-const CACHE = 'testudo-fea-v3'
+/* JANTVS Testudo service worker — caches app shell + wasm for offline use */
+const CACHE = 'jantvs-testudo-v5'
 const BASE = self.registration.scope
 
 self.addEventListener('install', (event) => {

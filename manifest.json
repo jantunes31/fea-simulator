@@ -1,18 +1,39 @@
 {
-  "name": "JANTVS Testudo — FEA by Jantunes",
-  "short_name": "JANTVS Testudo",
-  "description": "JANTVS Testudo — FEA by Jantunes. Browser SolidWorks-style static finite element analysis.",
+  "id": "/fea-simulator/",
+  "name": "JANTVS Testudo",
+  "short_name": "Testudo",
+  "description": "JANTVS Testudo — FEA by Jantunes. SolidWorks-style static finite element analysis that runs entirely in your browser, offline once installed.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
   "orientation": "any",
   "background_color": "#e8e8e8",
   "theme_color": "#8e0000",
+  "categories": ["productivity", "utilities", "education"],
+  "lang": "en",
+  "dir": "ltr",
+  "launch_handler": { "client_mode": "focus-existing" },
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
     { "src": "icons/testudo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "file_handlers": [
+    {
+      "action": "./",
+      "accept": {
+        "model/step": [".step", ".stp"],
+        "model/iges": [".iges", ".igs"],
+        "model/stl": [".stl"],
+        "application/octet-stream": [".brep"]
+      }
+    }
+  ],
+  "screenshots": [
+    { "src": "screenshots/desktop.png", "sizes": "1280x800", "type": "image/png", "form_factor": "wide", "label": "Stress plot of a plate in JANTVS Testudo" },
+    { "src": "screenshots/phone.png", "sizes": "390x844", "type": "image/png", "form_factor": "narrow", "label": "JANTVS Testudo on a phone" }
   ]
 }

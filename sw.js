@@ -1,5 +1,5 @@
 /* JANTVS Testudo service worker — caches app shell + wasm for offline use */
-const CACHE = 'jantvs-testudo-v19'
+const CACHE = 'jantvs-testudo-v20'
 const BASE = self.registration.scope
 
 self.addEventListener('install', (event) => {
@@ -12,6 +12,8 @@ self.addEventListener('install', (event) => {
       './icons/icon-192.png',
       './icons/icon-512.png',
       './icons/testudo.svg',
+      './icons/icon-maskable-192.png',
+      './icons/icon-maskable-512.png',
       './apple-touch-icon.png',
       './favicon.ico',
       './occt-import-js.wasm',
@@ -27,6 +29,28 @@ self.addEventListener('activate', (event) => {
     const keys = await caches.keys()
     await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
     self.clients.claim()
+  })())
+})
+
+// Offline warm-up (requested by the page once it has loaded): fetch the
+// large mesher / CAD-import runtimes in the background so the installed app
+// can import and mesh with no network.
+const WARM = [
+  './gmsh/gmsh.mjs', './gmsh/gmsh-core.mjs', './gmsh/gmsh-core.wasm', './gmsh/gmsh-descriptor.mjs', './gmsh/runtime.mjs',
+  './occt-import-js.js', './occt-import-js.wasm', './samples/cantilever_block.step',
+]
+self.addEventListener('message', (event) => {
+  if (event.data?.type !== 'warm-cache') return
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE)
+    for (const p of WARM) {
+      const url = new URL(p, BASE).href
+      if (await cache.match(url)) continue
+      try {
+        const res = await fetch(url)
+        if (res.ok) await cache.put(url, res)
+      } catch { /* offline: try next time */ }
+    }
   })())
 })
 
@@ -80,7 +104,9 @@ self.addEventListener('fetch', (event) => {
       }
       return isolate(net)
     } catch {
-      return Response.error()
+      // Offline: fall back to any cached copy (manifest.json, samples, …)
+      const any = await caches.match(req, { ignoreSearch: true })
+      return any ? isolate(any) : Response.error()
     }
   })())
 })

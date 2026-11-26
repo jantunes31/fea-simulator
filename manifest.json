@@ -25,6 +25,7 @@
     {
       "action": "./",
       "accept": {
+        "application/vnd.jantvs.testudo+zip": [".testudo"],
         "model/step": [".step", ".stp"],
         "model/iges": [".iges", ".igs"],
         "model/stl": [".stl"],

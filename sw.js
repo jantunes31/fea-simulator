@@ -1,5 +1,5 @@
 /* JANTVS Testudo service worker — caches app shell + wasm for offline use */
-const CACHE = 'jantvs-testudo-v20'
+const CACHE = 'jantvs-testudo-v21'
 const BASE = self.registration.scope
 
 self.addEventListener('install', (event) => {
